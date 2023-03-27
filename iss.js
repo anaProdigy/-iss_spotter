@@ -1,3 +1,7 @@
+const nextISSTimesForMyLocation = function(callback) {
+  // empty for now
+}
+
 /**
  * Makes a single API request to retrieve the user's IP address.
  * Input:
@@ -71,4 +75,4 @@ const fetchISSFlyOverTimes = function(coords, callback) {
   })  
 };
 
-module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
+module.exports = { nextISSTimesForMyLocation, fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
