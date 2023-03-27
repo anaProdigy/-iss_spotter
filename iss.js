@@ -1,7 +1,3 @@
-const nextISSTimesForMyLocation = function(callback) {
-  // empty for now
-}
-
 /**
  * Makes a single API request to retrieve the user's IP address.
  * Input:
@@ -46,7 +42,7 @@ const fetchCoordsByIP = function(ip, callback) {
       return;
     }
 
-   
+
     const result = { latitude: parsedBody.latitude, longitude: parsedBody.longitude };
     //same as upper line, destructuring method
     //const { latitude, longitude } = parsedBody;
@@ -72,7 +68,27 @@ const fetchISSFlyOverTimes = function(coords, callback) {
 
     const flyOver = JSON.parse(body).response;
     callback(null, flyOver);
-  })  
+  });
 };
+
+
+//implementing callback chaining
+const nextISSTimesForMyLocation = function(callback) {
+  fetchMyIP((error, ip) => {
+    if (error) return callback(error, null);
+
+    fetchCoordsByIP('50.68.205.27', (error, result) => {
+      if (error) return callback(error, null);
+
+      fetchISSFlyOverTimes({ latitude: '49.27670', longitude: '-123.13000' }, (error, data) => {
+        if (error) return callback(error, null);
+        callback(null, data);
+      });
+    });
+  });
+};
+
+
+
 
 module.exports = { nextISSTimesForMyLocation, fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
