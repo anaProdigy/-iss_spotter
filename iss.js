@@ -21,7 +21,7 @@ const fetchMyIP = function(callback) {
       return;
     }
     const ip = JSON.parse(body);
-    callback(null, ip);
+    callback(null, ip.ip);
   });
 };
 
@@ -78,7 +78,7 @@ const fetchISSFlyOverTimes = function(coords, callback) {
 const nextISSTimesForMyLocation = function(callback) {
   fetchMyIP((error, ip) => {
     if (error) return callback(error, null);
-
+console.log(ip)
     fetchCoordsByIP(ip, (error, result) => {
       if (error) return callback(error, null);
 
@@ -93,4 +93,4 @@ const nextISSTimesForMyLocation = function(callback) {
 
 
 
-module.exports = { nextISSTimesForMyLocation };
+module.exports = { nextISSTimesForMyLocation, fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
