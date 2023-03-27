@@ -25,9 +25,8 @@ const fetchMyIP = function(callback) {
   });
 };
 
-
+//make api request to retrive lotitude and longtitude
 const fetchCoordsByIP = function(ip, callback) {
-
 
   const url = `https://ipwho.is/${ip}`;
   request(url, (error, response, body) => {
@@ -51,4 +50,25 @@ const fetchCoordsByIP = function(ip, callback) {
   });
 
 };
-module.exports = { fetchMyIP, fetchCoordsByIP };
+
+//final API call which will fetch ISS flyovers for a given location.
+
+const fetchISSFlyOverTimes = function(coords, callback) {
+  const url = `https://iss-flyover.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`;
+
+  request(url, (error, response, body) => {
+    // error can be set if invalid domain, user is offline, etc.
+    if (error) return callback(error, null);
+
+    if (response.statusCode !== 200) {
+      const msg = `Status Code ${response.statusCode} when fetching IP. Response: ${body}`;
+      callback(Error(msg), null);
+      return;
+    }
+
+    const flyOver = JSON.parse(body);
+    callback(null, flyOver.response);
+  })  
+};
+
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
