@@ -12,11 +12,8 @@ const request = require('request');
 const fetchMyIP = function(callback) {
   const url = `https://api.ipify.org?format=json`;
   request(url, (error, response, body) => {
-     // error can be set if invalid domain, user is offline, etc.
-    if (error) {
-       callback(error, null);
-      return;
-    }
+    // error can be set if invalid domain, user is offline, etc.
+    if (error) return callback(error, null);
 
     if (response.statusCode !== 200) {
       const msg = `Status Code ${response.statusCode} when fetching IP. Response: ${body}`;
@@ -31,7 +28,7 @@ const fetchMyIP = function(callback) {
     // }
     callback(null, ip.ip);
 
-  })
+  });
 };
 
 module.exports = { fetchMyIP };
