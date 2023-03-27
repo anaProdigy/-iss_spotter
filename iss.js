@@ -20,14 +20,8 @@ const fetchMyIP = function(callback) {
       callback(Error(msg), null);
       return;
     }
-
     const ip = JSON.parse(body);
-
-    // if (ip.length === 0) {
-    //   return callback("ip not found", null);
-    // }
-    callback(null, ip.ip);
-
+    callback(null, ip);
   });
 };
 
