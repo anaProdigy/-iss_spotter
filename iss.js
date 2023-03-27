@@ -45,6 +45,8 @@ const fetchCoordsByIP = function(ip, callback) {
 
    
     const result = { latitude: parsedBody.latitude, longitude: parsedBody.longitude };
+    //same as upper line, destructuring method
+    //const { latitude, longitude } = parsedBody;
     callback(null, result);
   });
 
